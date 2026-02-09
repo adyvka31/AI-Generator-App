@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "980895016848",
+    "project_id": "ai-generator-app-a507c",
+    "storage_bucket": "ai-generator-app-a507c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980895016848:android:1c507ea122647bb3f87515",
+        "android_client_info": {
+          "package_name": "com.example.ai_generator_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6hO4xNp7Lxdzqbwi-zAF0iygcpqqYtsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
