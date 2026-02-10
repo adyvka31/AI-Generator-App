@@ -137,11 +137,11 @@ class _TicketFormScreenState extends State<TicketFormScreen> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide.none, // Hilangkan garis border standar
+        borderSide: BorderSide(color: Color(0xff372b2a)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Color(0xff372b2a)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
@@ -216,6 +216,7 @@ class _TicketFormScreenState extends State<TicketFormScreen> {
               ),
             ),
 
+            SizedBox(height: 20),
             // === 2. FORM CONTENT ===
             Expanded(
               child: SingleChildScrollView(

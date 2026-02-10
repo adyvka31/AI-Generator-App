@@ -119,15 +119,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 25),
 
               // 2. GREETING TEXT
               Text(
-                _getGreeting(),
+                "${_getGreeting()} $displayName",
                 style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w400, // Tipis elegan
-                  color: Color(0xff372b2a),
+                  color: Color(0xff3E2723),
                 ),
               ),
               const Text(
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff372b2a),
+                  color: Color(0xff3E2723),
                 ),
               ),
 
@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
 
-              const SizedBox(height: 35),
+              const SizedBox(height: 25),
               TextField(
                 controller: _searchController,
                 onChanged: (value) {
@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
-              const SizedBox(height: 35),
+              const SizedBox(height: 25),
 
               // 5. LIST TICKET (STREAM BUILDER)
               Expanded(

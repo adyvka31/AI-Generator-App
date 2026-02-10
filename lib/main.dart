@@ -25,8 +25,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Task Manager AI',
         theme: ThemeData(
-          primarySwatch: Colors.blue, useMaterial3: true, 
-          scaffoldBackgroundColor: Color(0xffedeede),),
+          primarySwatch: Colors.blue,
+          useMaterial3: true,
+          scaffoldBackgroundColor: Color(0xffFAFAFA),
+        ),
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
