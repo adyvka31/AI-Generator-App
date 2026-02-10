@@ -1,20 +1,49 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class GeminiService {
-  static const String apiKey = 'MASUKKAN_API_KEY_GEMINI_ANDA_DISINI';
+  static const String apiKey = 'AIzaSyDeSpzKlk89_lOONWPl-zeaoUikHQ4HlMM';
 
-  Future<String> summarizeTask(String title, String description) async {
+  Future<String> summarizeTask(
+    String title,
+    String description, {
+    String? customPrompt,
+  }) async {
     try {
-      final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
-      final prompt =
-          "Buatlah ringkasan singkat dan padat dari tugas berikut ini dalam bahasa Indonesia.\n\nJudul: $title\nDeskripsi: $description";
+      // PERBAIKAN UTAMA: Gunakan prefix 'models/' dan pastikan apiKey benar.
+      // Jika SDK Anda tetap memaksa v1beta, kita gunakan 'gemini-1.5-flash-latest'
+      final model = GenerativeModel(
+        model: 'gemini-1.5-flash-latest',
+        apiKey: apiKey,
+      );
 
-      final content = [Content.text(prompt)];
+      final basePrompt =
+          "Berdasarkan tugas berikut:\nJudul: $title\nDeskripsi: $description\n\n";
+      final instruction =
+          customPrompt ??
+          "Buatlah ringkasan singkat dan padat dalam bahasa Indonesia.";
+      final finalPrompt = "$basePrompt Instruksi pengguna: $instruction";
+
+      final content = [Content.text(finalPrompt)];
       final response = await model.generateContent(content);
 
-      return response.text ?? "Gagal mendapatkan ringkasan.";
+      return response.text ?? "Gagal mendapatkan jawaban.";
     } catch (e) {
-      return "Terjadi kesalahan: $e";
+      // Jika terjadi error model not found, gunakan alternatif penamaan ini:
+      try {
+        final fallbackModel = GenerativeModel(
+          model: 'gemini-pro', // Model paling stabil untuk API v1
+          apiKey: apiKey,
+        );
+
+        final prompt = "Ringkas tugas ini: $title. Deskripsi: $description";
+        final response = await fallbackModel.generateContent([
+          Content.text(prompt),
+        ]);
+
+        return response.text ?? "Gagal mendapatkan jawaban.";
+      } catch (fallbackError) {
+        return "Terjadi kesalahan: $e";
+      }
     }
   }
 }

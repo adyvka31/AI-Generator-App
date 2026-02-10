@@ -117,11 +117,7 @@ class _TicketFormScreenState extends State<TicketFormScreen> {
       padding: const EdgeInsets.only(bottom: 8, left: 4),
       child: Text(
         text,
-        style: TextStyle(
-          color: _themeColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
   }
@@ -130,22 +126,21 @@ class _TicketFormScreenState extends State<TicketFormScreen> {
   InputDecoration _buildInputDecoration({String? hint, Widget? suffix}) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
       suffixIcon: suffix,
       filled: true,
       fillColor: Colors.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: Color(0xff372b2a)),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: Color(0xff372b2a)),
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Color(0xff372B2A).withOpacity(0.1)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: _themeColor, width: 1.5),
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: _themeColor, width: 1),
       ),
     );
   }

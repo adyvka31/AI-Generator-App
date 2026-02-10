@@ -60,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    final Color themeColor = Color(0xff9E3B3B);
+    final Color themeColor = Color(0xff372b2a);
     final Color containerColor = isDark ? Color(0xFF1E1E1E) : Colors.white70;
     final Color textColor = isDark ? Colors.white : Colors.black;
     final Color borderColor = isDark ? themeColor.withOpacity(0.5) : themeColor;
