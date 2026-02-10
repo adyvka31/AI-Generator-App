@@ -1,3 +1,4 @@
+import 'package:ai_generator_app/screens/ai_summary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,13 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Load local summary saat aplikasi dibuka
-    Future.microtask(
-      () => Provider.of<TicketProvider>(
-        context,
-        listen: false,
-      ).loadLocalSummary(),
-    );
   }
 
   @override
@@ -202,57 +196,69 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 1,
                     child: Consumer<TicketProvider>(
                       builder: (context, provider, _) {
-                        return Container(
-                          height: 160,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: Color(0xff372b2a)),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Icon(
-                                    Icons.auto_awesome,
-                                    color: Colors.amber,
-                                  ),
-                                  if (provider.isGenerating)
-                                    const SizedBox(
-                                      width: 15,
-                                      height: 15,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
+                        return GestureDetector(
+                          onTap: () {
+                            // Misal mengambil data ticket pertama dari snapshot/list
+                            if (tickets.isNotEmpty) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      AiSummaryScreen(ticket: tickets.first),
+                                ),
+                              );
+                            }
+                          },
+                          child: Container(
+                            height: 160,
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              border: Border.all(color: Color(0xff372b2a)),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Icon(
+                                      Icons.auto_awesome,
+                                      color: Colors.amber,
                                     ),
-                                ],
-                              ),
-                              const Spacer(),
-                              const Text(
-                                "AI Summary",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                    if (provider.isSummarizing)
+                                      const SizedBox(
+                                        width: 15,
+                                        height: 15,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                provider.summary.length > 50
-                                    ? "${provider.summary.substring(0, 50)}..."
-                                    : provider.summary,
-                                style: const TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey,
+                                const Spacer(),
+                                const Text(
+                                  "AI Summary",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 5),
-                            ],
+                                const SizedBox(height: 5),
+                                Text(
+                                  "Create a summary of the task you created",
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey,
+                                  ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 5),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -424,51 +430,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  // Actions
-                                  PopupMenuButton(
-                                    icon: const Icon(
-                                      Icons.more_vert,
-                                      color: Colors.grey,
-                                    ),
-                                    onSelected: (value) {
-                                      if (value == 'edit') {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => TicketFormScreen(
-                                              ticket: ticket,
-                                            ),
-                                          ),
-                                        );
-                                      } else if (value == 'delete') {
-                                        _firestoreService.deleteTicket(
-                                          ticket.id,
-                                        );
-                                      } else if (value == 'ai_summary') {
-                                        Provider.of<TicketProvider>(
-                                          context,
-                                          listen: false,
-                                        ).generateAiSummary(tickets);
-                                      }
-                                    },
-                                    itemBuilder: (context) => [
-                                      const PopupMenuItem(
-                                        value: 'edit',
-                                        child: Text("Edit"),
-                                      ),
-                                      const PopupMenuItem(
-                                        value: 'delete',
-                                        child: Text(
-                                          "Delete",
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                      ),
-                                      const PopupMenuItem(
-                                        value: 'ai_summary',
-                                        child: Text("Generate AI Report"),
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),
