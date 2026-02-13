@@ -255,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                     ),
                     child: Icon(
-                      Icons.qr_code_scanner,
+                      Icons.notes_outlined,
                       size: 50,
                       color: themeColor,
                     ),

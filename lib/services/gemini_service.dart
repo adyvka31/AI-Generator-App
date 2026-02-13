@@ -12,7 +12,7 @@ class GeminiService {
       // PERBAIKAN UTAMA: Gunakan prefix 'models/' dan pastikan apiKey benar.
       // Jika SDK Anda tetap memaksa v1beta, kita gunakan 'gemini-1.5-flash-latest'
       final model = GenerativeModel(
-        model: 'gemini-1.5-flash-latest',
+        model: 'gemini-flash-latest',
         apiKey: apiKey,
       );
 
@@ -20,7 +20,7 @@ class GeminiService {
           "Berdasarkan tugas berikut:\nJudul: $title\nDeskripsi: $description\n\n";
       final instruction =
           customPrompt ??
-          "Buatlah ringkasan singkat dan padat dalam bahasa Indonesia.";
+          "Buatlah ringkasan detail dan padat dalam bahasa Indonesia.";
       final finalPrompt = "$basePrompt Instruksi pengguna: $instruction";
 
       final content = [Content.text(finalPrompt)];

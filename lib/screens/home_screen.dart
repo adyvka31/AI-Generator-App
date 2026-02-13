@@ -370,6 +370,53 @@ class _HomeScreenState extends State<HomeScreen> {
                                     subtitle: Text(
                                       "${ticket.time} • ${ticket.date}",
                                     ),
+                                    trailing: IconButton(
+                                      icon: const Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                      ),
+                                      onPressed: () async {
+                                        // Tampilkan dialog konfirmasi jika perlu
+                                        final confirm = await showDialog<bool>(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text('Hapus To-Do?'),
+                                            content: const Text(
+                                              'Apakah Anda yakin ingin menghapus item ini?',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                  context,
+                                                  false,
+                                                ),
+                                                child: const Text('Batal'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                  context,
+                                                  true,
+                                                ),
+                                                child: const Text(
+                                                  'Hapus',
+                                                  style: TextStyle(
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+
+                                        if (confirm == true) {
+                                          // Panggil provider untuk menghapus
+                                          Provider.of<TicketProvider>(
+                                            context,
+                                            listen: false,
+                                          ).removeTicket(ticket.id);
+                                        }
+                                      },
+                                    ),
                                   ),
                                 );
                               },

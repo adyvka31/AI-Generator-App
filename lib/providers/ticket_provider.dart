@@ -2,9 +2,15 @@
 import 'package:flutter/material.dart';
 import '../services/gemini_service.dart';
 import '../models/ticket.dart';
+import '../services/firestore_service.dart';
 
 class TicketProvider with ChangeNotifier {
   final GeminiService _geminiService = GeminiService();
+  final FirestoreService _firestoreService = FirestoreService();
+
+  // Local list to store tickets
+  List<Ticket> _tickets = [];
+  List<Ticket> get tickets => _tickets;
 
   bool _isSummarizing = false;
   bool get isSummarizing => _isSummarizing;
@@ -29,6 +35,12 @@ class TicketProvider with ChangeNotifier {
     _summary = result;
 
     _isSummarizing = false;
+    notifyListeners();
+  }
+
+  Future<void> removeTicket(String ticketId) async {
+    await _firestoreService.deleteTicket(ticketId);
+    _tickets.removeWhere((ticket) => ticket.id == ticketId);
     notifyListeners();
   }
 }

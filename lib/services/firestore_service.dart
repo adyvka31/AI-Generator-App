@@ -18,6 +18,16 @@ class FirestoreService {
     await _tasksRef.add(ticket.toMap());
   }
 
+  // CRUD: Delete Ticket
+  Future<void> deleteTicket(String ticketId) async {
+    try {
+      await _tasksRef.doc(ticketId).delete();
+    } catch (e) {
+      print("Error deleting ticket: $e");
+      rethrow;
+    }
+  }
+
   // Stream otomatis update UI jika ada perubahan data (Realtime & Offline Sync)
   Stream<List<Ticket>> getTickets() {
     return _tasksRef.orderBy('createdAt', descending: true).snapshots().map((
@@ -30,10 +40,5 @@ class FirestoreService {
   // CRUD: Update
   Future<void> updateTicket(Ticket ticket) async {
     await _tasksRef.doc(ticket.id).update(ticket.toMap());
-  }
-
-  // CRUD: Delete
-  Future<void> deleteTicket(String id) async {
-    await _tasksRef.doc(id).delete();
   }
 }
